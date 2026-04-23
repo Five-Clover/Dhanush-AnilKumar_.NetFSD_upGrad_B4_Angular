@@ -1,0 +1,75 @@
+﻿@model List<EMS.DAL.Models.SpeakersDetails>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Manage Speakers";
+}
+
+<h3 class="mb-3 text-center">Manage Speakers</h3>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success text-center">
+        @TempData["Message"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger text-center">
+        @TempData["Error"]
+    </div>
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+
+        <div class="card p-4 mb-4">
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    @Html.ValidationSummary()
+                </div>
+            }
+
+            <form asp-action="Create" method="post">
+
+                <div class="mb-3">
+                    <input name="SpeakerName" class="form-control" placeholder="Speaker Name" required />
+                </div>
+
+                <button class="btn btn-primary w-100">
+                    Add Speaker
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+<hr />
+
+<h3 class="mb-3 text-center">Speaker List</h3>
+
+<div class="row">
+    @foreach (var sp in Model)
+    {
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div class="card p-3 text-center">
+
+                <h5 class="mb-3">@sp.SpeakerName</h5>
+
+                <form method="post" asp-action="Delete" asp-route-id="@sp.SpeakerId"
+                      onsubmit="return confirm('Delete this speaker?');">
+                    <button class="btn btn-danger btn-sm">
+                        Delete
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    }
+</div>

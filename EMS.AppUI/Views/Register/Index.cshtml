@@ -1,0 +1,68 @@
+﻿@model EMS.DAL.Models.EventDetails
+
+@{
+    ViewData["Title"] = "Confirm Registration";
+}
+
+<div class="container mt-5">
+
+    <h3 class="text-center mb-4">Confirm Registration</h3>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card p-4">
+
+                <!-- EVENT TITLE -->
+                <h4 class="text-center mb-3">@Model.EventName</h4>
+
+                <!-- EVENT DETAILS -->
+                <p class="text-muted mb-1 text-center">
+                    <strong>Category:</strong> @Model.EventCategory
+                </p>
+
+                @if (!string.IsNullOrWhiteSpace(Model.Description))
+                {
+                    <p class="text-justify text-muted mt-2">
+                        @Model.Description
+                    </p>
+                }
+
+                <p class="text-muted mt-2 text-center">
+                    <strong>Date:</strong> @Model.EventDate.ToString("dd-MM-yyyy HH:mm")
+                </p>
+
+                <p class="text-center">
+                    <span class="badge bg-success">@Model.Status</span>
+                </p>
+
+                <!-- VALIDATION -->
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        @Html.ValidationSummary()
+                    </div>
+                }
+
+                <!-- FORM -->
+                <form method="post" asp-action="Register">
+
+                    <input type="hidden" name="eventId" value="@Model.EventId" />
+
+                    <button class="btn btn-success w-100 mt-3">
+                        Confirm Register
+                    </button>
+
+                </form>
+
+                <!-- CANCEL BUTTON -->
+                <a href="/" class="btn btn-outline-secondary w-100 mt-2">
+                    Cancel
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

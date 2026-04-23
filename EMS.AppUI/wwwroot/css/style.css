@@ -1,0 +1,196 @@
+/* ===== GLOBAL ===== */
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0B0C10;
+    color: #C5C6C7;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== CONTENT FIX (FOOTER STICK) ===== */
+.container {
+    flex: 1;
+    margin-top: 20px;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    background: #1F2833;
+}
+
+    .navbar .nav-link,
+    .navbar-brand {
+        color: #C5C6C7 !important;
+        font-weight: 500;
+    }
+
+        .navbar .nav-link:hover {
+            color: #66FCF1 !important;
+        }
+
+/* ===== CARDS ===== */
+.card {
+    background-color: #1F2833;
+    border: none;
+    border-radius: 12px;
+    color: #C5C6C7;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    transition: 0.3s;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+    background-color: #66FCF1;
+    border: none;
+    color: #0B0C10;
+    font-weight: 600;
+}
+
+    .btn-primary:hover {
+        background-color: #45A29E;
+        box-shadow: 0 0 10px #66FCF1;
+    }
+
+.btn-success {
+    background-color: #45A29E;
+    border: none;
+    color: white;
+}
+
+    .btn-success:hover {
+        background-color: #3a8c87;
+    }
+
+.btn-danger {
+    background-color: #dc2626;
+}
+
+.btn-logout {
+    border: 1px solid #66FCF1;
+    color: #66FCF1;
+    background: transparent;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+    .btn-logout:hover {
+        background-color: #66FCF1;
+        color: #0B0C10;
+    }
+
+.btn-warning {
+    background-color: #C5C6C7;
+    color: #0B0C10;
+}
+
+/* ===== FORM ===== */
+.form-control {
+    background-color: #0B0C10;
+    border: 1px solid #45A29E;
+    color: #C5C6C7;
+}
+
+    .form-control::placeholder {
+        color: #9ca3af;
+    }
+
+    .form-control:focus {
+        border-color: #66FCF1;
+        box-shadow: 0 0 0 0.1rem rgba(102,252,241,0.4);
+    }
+
+/* ===== HEADINGS ===== */
+h1, h2, h3, h4, h5 {
+    color: #ffffff;
+}
+
+/* ===== TEXT ===== */
+.text-muted {
+    color: #9ca3af !important;
+}
+
+/* ===== ALERTS ===== */
+.alert-success {
+    background-color: #022c22;
+    color: #66FCF1;
+}
+
+.alert-danger {
+    background-color: #450a0a;
+    color: #f87171;
+}
+
+.alert-warning {
+    background-color: #78350f;
+    color: #facc15;
+}
+
+/* ===== BADGES ===== */
+.badge.bg-success {
+    background-color: #45A29E !important;
+}
+
+.badge.bg-secondary {
+    background-color: #6b7280 !important;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: #1F2833;
+    color: #C5C6C7;
+    text-align: center;
+    padding: 12px;
+}
+
+/* ===== SMOOTH UI ===== */
+* {
+    transition: all 0.2s ease-in-out;
+}
+
+/* ===== MODAL ===== */
+.modal-content {
+    background: rgba(255, 255, 255, 0.85); /* glass effect */
+    color: #0B0C10;
+    border-radius: 14px;
+    border: none;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+.modal-header {
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-title {
+    color: #1F2833; /* darker text */
+    font-weight: 600;
+}
+
+.modal-footer {
+    border-top: 1px solid #ddd;
+}
+
+/* ===== BACKGROUND BLUR ===== */
+.modal-backdrop.show {
+    backdrop-filter: blur(24px);
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* ===== MODAL ANIMATION ===== */
+.modal.fade .modal-dialog {
+    transform: scale(0.9);
+    transition: 0.3s ease;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+    margin-top: 80px;
+}

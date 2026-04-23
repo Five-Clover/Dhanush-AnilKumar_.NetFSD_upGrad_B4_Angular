@@ -1,0 +1,128 @@
+﻿@model List<EMS.DAL.Models.EventDetails>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Manage Events";
+}
+
+<h3 class="mb-3">Add New Event</h3>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success text-center mt-2">
+        @TempData["Message"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger text-center mt-2">
+        @TempData["Error"]
+    </div>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
+}
+
+<div class="card p-3 mb-4">
+    <form asp-action="Create" method="post">
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <input name="EventName" class="form-control" placeholder="Event Name" required />
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <select name="EventCategory" class="form-control" required>
+                    <option value="">Select Category</option>
+                    <option>Tech & Innovations</option>
+                    <option>Industrial Events</option>
+                    <option>Artificial Intelligence</option>
+                    <option>Cybersecurity</option>
+                    <option>Cloud Computing</option>
+                    <option>Startup & Entrepreneurship</option>
+                    <option>Digital Marketing</option>
+                    <option>Career Development</option>
+                </select>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <input name="EventDate" type="datetime-local" class="form-control" required />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <textarea name="Description" class="form-control" placeholder="Enter Description"></textarea>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <select name="Status" class="form-control" required>
+                    <option value="">Select Status</option>
+                    <option>Active</option>
+                    <option>Inactive</option>
+                </select>
+            </div>
+
+        </div>
+
+        <button class="btn btn-primary">Add Event</button>
+    </form>
+</div>
+
+<hr />
+
+<h3 class="mb-3">Event List</h3>
+
+<div class="row">
+    @foreach (var ev in Model)
+    {
+        <div class="col-md-4">
+            <div class="card p-3 mb-4">
+
+                <h5>@ev.EventName</h5>
+
+                <p class="text-muted mb-1">
+                    <strong>Category:</strong> @ev.EventCategory
+                </p>
+
+                @if (!string.IsNullOrWhiteSpace(ev.Description))
+                {
+                    <p class="text-muted text-justify">
+                        @(ev.Description.Length > 100
+                                        ? ev.Description.Substring(0, 100) + "..."
+                                        : ev.Description)
+            </p>
+                        }
+
+                <p class="text-muted">
+                    <strong>Date:</strong> @ev.EventDate.ToString("dd-MM-yyyy HH:mm")
+                </p>
+
+                <p>
+                    <span class="badge @(ev.Status == "Active" ? "bg-success" : "bg-secondary")">
+                        @ev.Status
+                    </span>
+                </p>
+
+                <div class="d-flex justify-content-between mt-3">
+
+                    <a href="/Event/Edit/@ev.EventId" class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <form method="post" asp-action="Delete" asp-route-id="@ev.EventId"
+                          onsubmit="return confirm('Are you sure you want to delete this event?');">
+
+                        <button class="btn btn-danger btn-sm">
+                            Delete
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

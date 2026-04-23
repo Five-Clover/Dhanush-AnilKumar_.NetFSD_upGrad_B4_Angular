@@ -1,0 +1,76 @@
+﻿@model EMS.DAL.Models.EventDetails
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Edit Event";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+
+        <div class="card p-4">
+
+            <h3 class="text-center mb-4">Edit Event</h3>
+            
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    @Html.ValidationSummary()
+                </div>
+            }
+
+            <form method="post">
+
+                <input type="hidden" asp-for="EventId" />
+
+                <div class="mb-3">
+                    <label>Event Name</label>
+                    <input asp-for="EventName" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Category</label>
+                    <select asp-for="EventCategory" class="form-control">
+                        <option>Tech & Innovations</option>
+                        <option>Industrial Events</option>
+                        <option>Artificial Intelligence</option>
+                        <option>Cybersecurity</option>
+                        <option>Cloud Computing</option>
+                        <option>Startup & Entrepreneurship</option>
+                        <option>Digital Marketing</option>
+                        <option>Career Development</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>Date</label>
+                    <input asp-for="EventDate" type="datetime-local" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Description</label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label>Status</label>
+                    <select asp-for="Status" class="form-control">
+                        <option>Active</option>
+                        <option>Inactive</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-success w-100">
+                    Update Event
+                </button>
+
+                <a href="/Event" class="btn btn-outline-secondary w-100 mt-2">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>

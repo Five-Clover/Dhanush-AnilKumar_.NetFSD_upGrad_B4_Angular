@@ -1,0 +1,101 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h3 class="text-center mt-4">My Registered Events</h3>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-warning text-center">
+        @TempData["Message"]
+    </div>
+}
+
+@if (Model == null || Model.Count == 0)
+{
+    <div class="alert alert-info text-center mt-4">
+        You have not registered for any events.
+    </div>
+}
+else
+{
+    <div class="row mt-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6">
+                <div class="card p-3 mb-4">
+
+                    <!-- EVENT -->
+                    @if (item.Event != null)
+                    {
+                        <h5>@item.Event.EventName</h5>
+
+                        <p class="text-muted mb-1">
+                            <strong>Category:</strong> @item.Event.EventCategory
+                        </p>
+
+                        <p class="text-muted">
+                            <strong>Date:</strong> @item.Event.EventDate.ToString("dd-MM-yyyy")
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="text-danger">Event not found</p>
+                    }
+
+                    <!-- SESSIONS -->
+                    <h6 class="mt-3">Sessions:</h6>
+
+                    @if (item.Sessions != null && item.Sessions.Count > 0)
+                    {
+                        <ul class="list-group mb-3">
+                            @foreach (var s in item.Sessions)
+                            {
+                                <li class="list-group-item">
+
+                                    <strong>@s.SessionTitle</strong><br />
+
+                                    <p class="text-muted mb-1">
+                                        <strong>Speaker:</strong>
+                                        @(s.Speaker != null ? s.Speaker.SpeakerName : "No Speaker Assigned")
+                                    </p>
+
+                                    <small class="text-muted">
+                                        @s.SessionStart.ToShortTimeString() -
+                                        @s.SessionEnd.ToShortTimeString()
+                                    </small>
+
+                                    @if (!string.IsNullOrWhiteSpace(s.Description))
+                                    {
+                                        <p class="mt-2 text-justify text-muted">@s.Description</p>
+                                    }
+
+                                    <a href="@s.SessionUrl" target="_blank"
+                                       class="btn btn-success btn-sm mt-2">
+                                        Join
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No sessions available</p>
+                    }
+
+                    <!-- UNREGISTER -->
+                    @if (item.Event != null)
+                    {
+                        <a href="/Register/Unregister?eventId=@item.Event.EventId"
+                           class="btn btn-danger btn-sm">
+                            Unregister
+                        </a>
+                    }
+
+                </div>
+            </div>
+        }
+    </div>
+}

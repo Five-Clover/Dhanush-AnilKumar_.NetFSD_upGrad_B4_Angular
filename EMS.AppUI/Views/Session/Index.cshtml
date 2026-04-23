@@ -1,0 +1,125 @@
+﻿@model List<EMS.DAL.Models.SessionInfo>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var events = ViewBag.Events as List<EMS.DAL.Models.EventDetails>;
+    ViewData["Title"] = "Manage Sessions";
+}
+
+<h3 class="mb-3">Add Session</h3>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @Html.ValidationSummary()
+    </div>
+}
+
+<div class="card p-3 mb-4">
+    <form method="post" asp-action="Create">
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <select name="EventId" class="form-control" required>
+                    <option value="">Select Event</option>
+                    @foreach (var ev in ViewBag.Events)
+                    {
+                        <option value="@ev.EventId">@ev.EventName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <input name="SessionTitle" class="form-control" placeholder="Title" required />
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <textarea name="Description" class="form-control" placeholder="Enter Description"></textarea>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <select name="SpeakerId" class="form-control">
+                    <option value="">No Speaker</option>
+
+                    @foreach (var sp in ViewBag.Speakers)
+                    {
+                        <option value="@sp.SpeakerId">@sp.SpeakerName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <input name="SessionUrl" class="form-control" placeholder="Session URL" required />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <input name="SessionStart" type="datetime-local" class="form-control" required />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <input name="SessionEnd" type="datetime-local" class="form-control" required />
+            </div>
+
+        </div>
+
+        <button class="btn btn-primary">Add Session</button>
+
+    </form>
+</div>
+
+<hr />
+
+<h3 class="mb-3">Session List</h3>
+
+<div class="row">
+    @foreach (var s in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card p-3">
+
+                <h5>@s.SessionTitle</h5>
+
+                <p class="text-muted mb-2">
+                    <strong>Speaker:</strong>
+                    @(s.Speaker != null ? s.Speaker.SpeakerName : "No Speaker Assigned")
+                </p>
+
+                @if (!string.IsNullOrWhiteSpace(s.Description))
+                {
+                    <p class="text-muted text-justify">
+                        @(s.Description.Length > 100
+                                        ? s.Description.Substring(0, 100) + "..."
+                                        : s.Description)
+                    </p>
+                 }
+
+                <p class="text-muted mb-1">
+                    <strong>Event:</strong> @s.Event?.EventName
+                </p>
+
+                <p class="text-muted mb-1">
+                    <strong>Start:</strong> @s.SessionStart.ToString("dd-MM-yyyy HH:mm")
+                </p>
+
+                <p class="text-muted">
+                    <strong>End:</strong> @s.SessionEnd.ToString("dd-MM-yyyy HH:mm")
+                </p>
+
+                <div class="d-flex justify-content-between mt-2">
+
+                    <a href="/Session/Edit/@s.SessionId" class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <form method="post" asp-action="Delete" asp-route-id="@s.SessionId"
+                          onsubmit="return confirm('Delete this session?');">
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

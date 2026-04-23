@@ -1,0 +1,92 @@
+﻿@model IEnumerable<EMS.DAL.Models.EventDetails>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h2 class="mb-4">Explore Events</h2>
+
+@if (!string.IsNullOrEmpty(Context.Request.Query["search"]))
+{
+    <p class="text-muted">
+        Showing results for: <strong>@Context.Request.Query["search"]</strong>
+    </p>
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No events available right now.
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var ev in Model)
+        {
+            <div class="col-md-4">
+                <div class="card p-3 mb-4">
+
+                    <h5 class="mb-2">@ev.EventName</h5>
+
+                    <p class="text-muted mb-1">
+                        <strong>Category:</strong> @ev.EventCategory
+                    </p>
+
+                    <p class="text-muted mb-1">
+                        <strong>Date:</strong> @ev.EventDate.ToShortDateString()
+                    </p>
+
+                    @if (!string.IsNullOrEmpty(ev.Description))
+                    {
+                        <p class="mb-2 text-justify text-muted">
+                            @(ev.Description.Length > 100
+                                            ? ev.Description.Substring(0, 100) + "..."
+                                            : ev.Description)
+                        </p>
+
+                        @if (ev.Description.Length > 100)
+                        {
+                            <button class="btn btn-sm btn-outline-primary mt-2"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#descModal-@ev.EventId">
+                                Read more
+                            </button>
+                        }
+                     }
+
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="badge bg-success">@ev.Status</span>
+
+                        <a href="/Register/Index?eventId=@ev.EventId"
+                           class="btn btn-primary btn-sm">
+                            Register
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="modal fade" id="descModal-@ev.EventId" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title">@ev.EventName</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <p class="text-justify">@ev.Description</p>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>EMS - Admin</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Your CSS -->
+    <link href="~/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg px-4">
+        <a class="navbar-brand fw-bold" href="/Event">EMS Admin</a>
+
+        <div class="ms-auto">
+            <a class="nav-link d-inline me-3" href="/Event">Events</a>
+            <a class="nav-link d-inline me-3" href="/Session">Sessions</a>
+            <a class="nav-link d-inline me-3" href="/Speaker">Speakers</a>
+            <a class="btn btn-logout" href="/Admin/Logout">🔓 Logout</a>
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="container mt-4">
+        @RenderBody()
+    </div>
+
+    <footer class="text-center text-white mt-5 p-3" style="background:#0f172a;">
+        © 2026 Event Management System
+    </footer>
+
+</body>
+</html>

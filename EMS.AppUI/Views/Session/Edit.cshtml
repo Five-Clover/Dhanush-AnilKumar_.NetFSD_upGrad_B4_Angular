@@ -1,0 +1,87 @@
+﻿@model EMS.DAL.Models.SessionInfo
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+
+        <div class="card p-4">
+
+            <h3 class="text-center mb-4">Edit Session</h3>
+           
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    @Html.ValidationSummary()
+                </div>
+            }
+
+            <form method="post">
+
+                <input type="hidden" asp-for="SessionId" />
+
+                <div class="mb-3">
+                    <label>Title</label>
+                    <input asp-for="SessionTitle" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Description</label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label>Event</label>
+                    <select asp-for="EventId" class="form-control">
+                        @foreach (var ev in ViewBag.Events)
+                        {
+                            <option value="@ev.EventId">@ev.EventName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>Speaker</label>
+                    <select asp-for="SpeakerId" class="form-control">
+                        <option value="">No Speaker</option>
+
+                        @foreach (var sp in ViewBag.Speakers)
+                        {
+                            <option value="@sp.SpeakerId">@sp.SpeakerName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>Start</label>
+                    <input asp-for="SessionStart" type="datetime-local"
+                           class="form-control"
+                           value="@Model.SessionStart.ToString("yyyy-MM-ddTHH:mm")" />
+                </div>
+
+                <div class="mb-3">
+                    <label>End</label>
+                    <input asp-for="SessionEnd" type="datetime-local"
+                           class="form-control"
+                           value="@Model.SessionEnd.ToString("yyyy-MM-ddTHH:mm")" />
+                </div>
+
+                <div class="mb-3">
+                    <label>URL</label>
+                    <input asp-for="SessionUrl" class="form-control" />
+                </div>
+
+                <button class="btn btn-success w-100">Update Session</button>
+
+                <a href="/Session" class="btn btn-outline-secondary w-100 mt-2">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>

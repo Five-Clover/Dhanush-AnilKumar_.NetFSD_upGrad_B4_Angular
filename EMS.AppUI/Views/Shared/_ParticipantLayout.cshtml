@@ -1,0 +1,74 @@
+﻿@{
+    var user = Context.Session.GetString("User");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>EMS</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="~/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg px-4">
+        <a class="navbar-brand fw-bold" href="/">EMS</a>
+
+        <!-- SEARCH BAR -->
+        <form class="d-flex ms-4" method="get" action="/Home/Index">
+            <input class="form-control me-2" type="search" name="search"
+                   placeholder="Search events..." />
+            <button class="btn btn-light" type="submit">Search</button>
+        </form>
+
+        <div class="ms-auto">
+
+            <!-- HOME LINK -->
+            <a class="nav-link d-inline me-3" href="/">Home</a>
+            
+            @if (user != null)
+            {
+                <!-- LOGGED IN -->
+                <a class="nav-link d-inline me-3" href="/Account/Dashboard">Dashboard</a>
+
+                <!-- CONTACT LINK -->
+                <a class="nav-link d-inline me-3" href="/Home/Contact">Contact</a>
+
+                <a class="btn btn-logout" href="/Account/Logout">🔓 Logout</a>
+            }
+            else
+            {
+                <!-- NOT LOGGED IN -->
+                <a class="nav-link d-inline me-3" href="/Account/Login">Login</a>
+                <a class="nav-link d-inline me-3" href="/Account/Register">Register</a>
+
+                <!-- CONTACT LINK -->
+                <a class="nav-link d-inline me-3" href="/Home/Contact">Contact</a>
+            }
+
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="container mt-4">
+        @RenderBody()
+    </div>
+
+    <footer class="text-center text-white mt-5 p-3" style="background:#0f172a;">
+        © 2026 Event Management System
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

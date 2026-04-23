@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EMS.DAL.Models
+{
+    public class ParticipantEventDetails
+    {
+        [Key]
+        public Guid Id { get; set; }
+
+        [Required]
+        public string ParticipantEmailId { get; set; }
+
+        [Required]
+        public Guid EventId { get; set; }
+
+        public bool IsAttended { get; set; }
+    }
+}
